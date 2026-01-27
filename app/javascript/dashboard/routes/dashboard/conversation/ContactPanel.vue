@@ -20,6 +20,7 @@ import CustomAttributes from './customAttributes/CustomAttributes.vue';
 import Draggable from 'vuedraggable';
 import MacrosList from './Macros/List.vue';
 import ShopifyOrdersList from 'dashboard/components/widgets/conversation/ShopifyOrdersList.vue';
+import TiendaNubeOrdersList from 'dashboard/components/widgets/conversation/TiendanubeOrdersList.vue';
 import SidebarActionsHeader from 'dashboard/components-next/SidebarActionsHeader.vue';
 import LinearIssuesList from 'dashboard/components/widgets/conversation/linear/IssuesList.vue';
 import LinearSetupCTA from 'dashboard/components/widgets/conversation/linear/LinearSetupCTA.vue';
@@ -52,6 +53,15 @@ const shopifyIntegration = useFunctionGetter(
 
 const isShopifyFeatureEnabled = computed(
   () => shopifyIntegration.value.enabled
+);
+
+const TiendanubeIntegration = useFunctionGetter(
+  'integrations/getIntegration',
+  'tiendanube'
+);
+
+const isTiendanubeFeatureEnabled = computed(
+  () => TiendanubeIntegration.value.enabled
 );
 
 const { isCloudFeatureEnabled } = useAccount();
@@ -123,6 +133,7 @@ const closeContactPanel = () => {
 
 onMounted(() => {
   conversationSidebarItems.value = conversationSidebarItemsOrder.value;
+  console.log(conversationSidebarItems.value)
   getContactDetails();
   store.dispatch('attributes/get', 0);
   // Load integrations to ensure linear integration state is available
@@ -283,6 +294,22 @@ onMounted(() => {
               "
             >
               <ShopifyOrdersList :contact-id="contactId" />
+            </AccordionItem>
+          </div>
+          <div
+            v-else-if="
+              element.name === 'tiendanube_orders' && isTiendanubeFeatureEnabled
+            "
+          >
+            <AccordionItem
+              :title="$t('CONVERSATION_SIDEBAR.ACCORDION.TIENDANUBE_ORDERS')"
+              :is-open="isContactSidebarItemOpen('is_tiendanube_orders_open')"
+              compact
+              @toggle="
+                value => toggleSidebarUIState('is_tiendanube_orders_open', value)
+              "
+            >
+              <TiendaNubeOrdersList :contact-id="contactId" />
             </AccordionItem>
           </div>
           <div v-else-if="element.name === 'contact_notes'">

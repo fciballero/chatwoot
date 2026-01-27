@@ -234,3 +234,6 @@
   display_name: CSAT Review Notes
   enabled: false
   premium: true
+- name: tiendanube_integration
+  display_name: Tiendanube Integration
+  enabled: true
