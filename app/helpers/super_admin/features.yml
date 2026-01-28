@@ -144,3 +144,9 @@ shopify:
   enabled: true
   icon: 'icon-shopify'
   config_key: 'shopify'
+tiendanube:
+  name: 'Tiendanube'
+  description: 'Configuration for setting up Tiendanube Integration'
+  enabled: true
+  icon: 'icon-tiendanube'
+  config_key: 'tiendanube'

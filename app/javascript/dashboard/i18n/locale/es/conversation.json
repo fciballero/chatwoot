@@ -349,12 +349,32 @@
       "PREVIOUS_CONVERSATION": "Conversaciones anteriores",
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Problemas lineales vinculados",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "TIENDANUBE_ORDERS": "Tiendanube Orders"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
       "ERROR": "Error loading orders",
       "NO_SHOPIFY_ORDERS": "No orders found",
+      "FINANCIAL_STATUS": {
+        "PENDING": "Pendientes",
+        "AUTHORIZED": "Authorized",
+        "PARTIALLY_PAID": "Partially Paid",
+        "PAID": "Paid",
+        "PARTIALLY_REFUNDED": "Partially Refunded",
+        "REFUNDED": "Refunded",
+        "VOIDED": "Voided"
+      },
+      "FULFILLMENT_STATUS": {
+        "FULFILLED": "Fulfilled",
+        "PARTIALLY_FULFILLED": "Partially Fulfilled",
+        "UNFULFILLED": "Unfulfilled"
+      }
+    },
+    "TIENDANUBE": {
+      "ORDER_ID": "Order #{id}",
+      "ERROR": "Error loading orders",
+      "NO_TIENDANUBE_ORDERS": "No orders found",
       "FINANCIAL_STATUS": {
         "PENDING": "Pendientes",
         "AUTHORIZED": "Authorized",
