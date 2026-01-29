@@ -372,22 +372,21 @@
       }
     },
     "TIENDANUBE": {
-      "ORDER_ID": "Order #{id}",
-      "ERROR": "Error loading orders",
-      "NO_TIENDANUBE_ORDERS": "No orders found",
+      "ORDER_ID": "Orden #{id}",
+      "ERROR": "Error al cargar las órdenes",
+      "NO_TIENDANUBE_ORDERS": "No se encontraron órdenes",
+
       "FINANCIAL_STATUS": {
-        "PENDING": "Pendientes",
-        "AUTHORIZED": "Authorized",
-        "PARTIALLY_PAID": "Partially Paid",
-        "PAID": "Paid",
-        "PARTIALLY_REFUNDED": "Partially Refunded",
-        "REFUNDED": "Refunded",
-        "VOIDED": "Voided"
+        "PENDING": "Pendiente",
+        "PAID": "Pagado",
+        "REFUNDED": "Reembolsado",
+        "CANCELLED": "Cancelada"
       },
+
       "FULFILLMENT_STATUS": {
-        "FULFILLED": "Fulfilled",
-        "PARTIALLY_FULFILLED": "Partially Fulfilled",
-        "UNFULFILLED": "Unfulfilled"
+        "FULFILLED": "Despachada",
+        "PARTIAL": "Despacho parcial",
+        "UNFULFILLED": "Sin despachar"
       }
     }
   },

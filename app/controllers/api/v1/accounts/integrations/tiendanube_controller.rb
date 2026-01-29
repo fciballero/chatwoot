@@ -18,6 +18,11 @@ class Api::V1::Accounts::Integrations::TiendanubeController < Api::V1::Accounts:
     ).fetch_orders
 
     render json: { orders: orders }
+
+  rescue StandardError => e
+    Rails.logger.error("Unexpected Tiendanube error: #{e.message}")
+    render json: { error: t('integration_apps.tiendanube.error.orders') },
+          status: :internal_server_error
   end
 
   def destroy
@@ -37,8 +42,9 @@ class Api::V1::Accounts::Integrations::TiendanubeController < Api::V1::Accounts:
 
   def validate_contact
     if contact.blank? || (contact.email.blank? && contact.phone_number.blank?)
-      render json: { error: 'Contact information missing' },
+      render json: { error: t('integration_apps.tiendanube.error.contact_missing') },
              status: :unprocessable_entity
+      return
     end
   end
 

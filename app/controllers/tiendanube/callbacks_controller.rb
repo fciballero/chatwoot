@@ -1,4 +1,3 @@
-# app/controllers/tiendanube/callbacks_controller.rb
 class Tiendanube::CallbacksController < ApplicationController
   include Tiendanube::IntegrationHelper
 

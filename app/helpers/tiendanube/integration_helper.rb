@@ -26,10 +26,16 @@ module Tiendanube::IntegrationHelper
 
     parsed = JSON.parse(response.body)
 
-    if parsed['access_token'].blank? || parsed['user_id'].blank?
-      raise "Tiendanube OAuth failed: #{parsed}"
+    unless parsed['access_token'].present? && parsed['user_id'].present?
+      raise StandardError, "Tiendanube OAuth failed: #{parsed}"
     end
 
     parsed
+  rescue JSON::ParserError => e
+    Rails.logger.error("Tiendanube token parse error: #{e.message}")
+    raise StandardError, 'Invalid Tiendanube OAuth response'
+  rescue HTTParty::Error, SocketError => e
+    Rails.logger.error("Tiendanube OAuth request error: #{e.message}")
+    raise StandardError, 'Tiendanube OAuth request failed'
   end
 end

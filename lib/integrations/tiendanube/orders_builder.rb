@@ -59,10 +59,19 @@ class Integrations::Tiendanube::OrdersBuilder
     response = connection.get('orders') do |req|
       req.params['limit'] = MAX_ORDERS
       req.params['fields'] =
-        'id,number,status,payment_status,created_at,contact_email,shipping_address'
+        'id,number,status,payment_status,created_at,contact_email,shipping_address,total,currency'
     end
 
-    response.body || []
+    if response.status == 200
+      response.body || []
+    else
+      Rails.logger.error("Response status error: #{response.status}")
+      []
+    end
+  rescue Faraday::TimeoutError
+    raise Integrations::Tiendanube::ApiError, 'Timeout'
+  rescue Faraday::ConnectionFailed => e
+    raise Integrations::Tiendanube::ApiError, e.message
   end
 
   def connection
@@ -84,20 +93,49 @@ class Integrations::Tiendanube::OrdersBuilder
 
   def normalize_order(order)
     {
-      id: order['id'],
-      number: order['number'],
-      status: order['status'],
-      payment_status: order['payment_status'],
+      id: order['number'] || order['id'],
+      external_id: order['id'],
+      financial_status: map_financial_status(order),
+      fulfillment_status: map_fulfillment_status(order),
+      total_price: order['total'],
+      currency: order['currency'],
       created_at: order['created_at'],
       admin_url: admin_order_url(order['id'])
     }
   end
 
   def admin_order_url(order_id)
-    "https://www.tiendanube.com/admin/v2/orders/#{order_id}"
+    "https://tiendatest176.mitiendanube.com/admin/orders/#{order_id}"
   end
 
   def normalize_phone(phone)
     phone.to_s.gsub(/\D/, '')
   end
+
+  def map_financial_status(order)
+    case order['payment_status']
+    when 'paid'
+      'paid'
+    when 'pending'
+      'pending'
+    when 'cancelled', 'refunded'
+      'refunded'
+    else
+      'unknown'
+    end
+  end
+
+  def map_fulfillment_status(order)
+  fulfillments = order['fulfillments'] || []
+
+  return 'unfulfilled' if fulfillments.empty?
+
+  statuses = fulfillments.map { |f| f['status'] }
+
+  if statuses.include?('DISPATCHED')
+    'fulfilled'
+  else
+    'partial'
+  end
+end
 end

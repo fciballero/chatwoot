@@ -316,6 +316,9 @@ es:
       name: 'Tiendanube'
       short_description: 'Integracion Tiendanube'
       description: 'Una breve descripcion de la integracion con tiendanube'
+      error:
+        orders: Error al cargar ordenes
+        contact_missing: Error en los datos del usuario
     leadsquared:
       name: 'LeadSquared'
       short_description: 'Sync your contacts and conversations with LeadSquared CRM.'
