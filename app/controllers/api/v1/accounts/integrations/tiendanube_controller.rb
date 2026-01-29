@@ -1,6 +1,7 @@
 class Api::V1::Accounts::Integrations::TiendanubeController < Api::V1::Accounts::BaseController
   before_action :check_admin_authorization?
   before_action :fetch_hook, only: [:destroy, :orders]
+  before_action :validate_contact, only: [:orders]
 
   def auth
     session[:tiendanube_account_id] = permitted_params[:account_id]
@@ -10,21 +11,13 @@ class Api::V1::Accounts::Integrations::TiendanubeController < Api::V1::Accounts:
     }
   end
 
-  # def create
-  #   hook = Integrations::Tiendanube::HookBuilder.new(
-  #     account: Current.account,
-  #     code: params[:code]
-  #   ).perform
-
-  #   render json: hook, status: :created
-  # end
-
   def orders
-    orders = Integrations::Tiendanube::OrdersBuilder
-               .new(hook: @hook)
-               .fetch_orders
+    orders = Integrations::Tiendanube::OrdersBuilder.new(
+      hook: @hook,
+      contact: contact
+    ).fetch_orders
 
-    render json: orders
+    render json: { orders: orders }
   end
 
   def destroy
@@ -36,6 +29,17 @@ class Api::V1::Accounts::Integrations::TiendanubeController < Api::V1::Accounts:
 
   def fetch_hook
     @hook = Current.account.hooks.find_by!(app_id: 'tiendanube')
+  end
+
+  def contact
+    @contact ||= Current.account.contacts.find_by(id: params[:contact_id])
+  end
+
+  def validate_contact
+    if contact.blank? || (contact.email.blank? && contact.phone_number.blank?)
+      render json: { error: 'Contact information missing' },
+             status: :unprocessable_entity
+    end
   end
 
   def tiendanube_authorize_url
