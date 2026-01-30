@@ -69,9 +69,9 @@ class Integrations::Tiendanube::OrdersBuilder
       []
     end
   rescue Faraday::TimeoutError
-    raise Integrations::Tiendanube::ApiError, 'Timeout'
+    raise 'Faraday::TimeoutError'
   rescue Faraday::ConnectionFailed => e
-    raise Integrations::Tiendanube::ApiError, e.message
+    raise 'Faraday::ConnectionFailed', e.message
   end
 
   def connection
