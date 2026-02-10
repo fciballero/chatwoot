@@ -77,13 +77,13 @@ class Enterprise::Billing::HandleStripeEventService
     # https://stripe.com/docs/api/subscriptions/object
     account.update(
       custom_attributes: account.custom_attributes.merge(
-        'stripe_customer_id' => subscription.customer,
+        'stripe_customer_id' => subscription['customer'],
         'stripe_price_id' => subscription['plan']['id'],
         'stripe_product_id' => subscription['plan']['product'],
         'plan_name' => plan['name'],
         'subscribed_quantity' => subscription['quantity'],
         'subscription_status' => subscription['status'],
-        'subscription_ends_on' => Time.zone.at(subscription['current_period_end'])
+        'subscription_ends_on' => Time.zone.at(subscription['items']['data'][0]['current_period_end'])
       )
     )
   end
@@ -149,9 +149,14 @@ class Enterprise::Billing::HandleStripeEventService
   end
 
   def get_plan_credits(plan_name)
-    config = InstallationConfig.find_by(name: CAPTAIN_CLOUD_PLAN_LIMITS).value
+    config_record = InstallationConfig.find_by(name: CAPTAIN_CLOUD_PLAN_LIMITS)
+    return { responses: 0, documents: 0 } if config_record.blank?
+
+    config = config_record.value
     config = JSON.parse(config) if config.is_a?(String)
-    config[plan_name.downcase]&.symbolize_keys
+    return { responses: 0, documents: 0 } if config.blank?
+
+    config[plan_name.downcase]&.symbolize_keys || { responses: 0, documents: 0 }
   end
 
   def enable_plan_specific_features
