@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, reactive } from 'vue';
+import { useRoute } from 'vue-router';
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength, email } from '@vuelidate/validators';
 import { useStore } from 'vuex';
@@ -23,12 +24,16 @@ const { t } = useI18n();
 const hCaptcha = ref(null);
 const isPasswordFocused = ref(false);
 const isSignupInProgress = ref(false);
+const route = useRoute();
+const planFromQuery = computed(() => route.query.plan || null);
 
 const credentials = reactive({
   email: '',
   password: '',
   hCaptchaClientResponse: '',
+  plan: planFromQuery,
 });
+
 
 const rules = {
   credentials: {
@@ -36,7 +41,8 @@ const rules = {
       required,
       email,
       businessEmailValidator(value) {
-        return CompanyEmailValidator.isCompanyEmail(value);
+        return true
+        // return CompanyEmailValidator.isCompanyEmail(value);
       },
     },
     password: {

@@ -36,6 +36,9 @@ export default [
     name: 'auth_signup',
     component: Signup,
     meta: { requireSignupEnabled: true },
+      props: route => ({
+      plan: route.query.plan,
+    }),
   },
   {
     path: frontendURL('auth/confirmation'),

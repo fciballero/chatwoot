@@ -239,7 +239,13 @@ export default {
       </h2>
       <p v-if="showSignupLink" class="mt-3 text-sm text-center text-n-slate-11">
         {{ $t('COMMON.OR') }}
-        <router-link to="auth/signup" class="lowercase text-link text-n-brand">
+        <router-link
+            :to="{
+              name: 'auth_signup',
+              query: { plan: 'hacker' }
+            }"
+            class="lowercase text-link text-n-brand"
+        >
           {{ $t('LOGIN.CREATE_NEW_ACCOUNT') }}
         </router-link>
       </p>
