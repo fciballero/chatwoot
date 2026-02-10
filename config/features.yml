@@ -237,3 +237,6 @@
 - name: captain_tasks
   display_name: Captain Tasks
   enabled: true
+- name: tiendanube_integration
+  display_name: Tiendanube Integration
+  enabled: true
