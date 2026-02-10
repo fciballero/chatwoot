@@ -18,7 +18,7 @@ const FEATURE_HELP_URLS = {
   sla: 'https://chwt.app/hc/sla',
   team_management: 'https://chwt.app/hc/teams',
   webhook: 'https://chwt.app/hc/webhooks',
-  billing: 'https://chwt.app/pricing',
+  billing: 'https://www.redchat.com.ar/pricing',
   saml: 'https://chwt.app/hc/saml',
   captain_billing: 'https://chwt.app/hc/captain_billing',
 };
