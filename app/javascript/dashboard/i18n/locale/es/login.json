@@ -24,17 +24,17 @@
     "CREATE_NEW_ACCOUNT": "Crear nueva cuenta",
     "SUBMIT": "Iniciar sesión",
     "SAML": {
-      "LABEL": "Login via SSO",
-      "TITLE": "Initiate Single Sign-on (SSO)",
-      "SUBTITLE": "Enter your work email to access your organization",
-      "BACK_TO_LOGIN": "Login via Password",
+      "LABEL": "Iniciar sesión con Google",
+      "TITLE": "Iniciar sesión con Google",
+      "SUBTITLE": "Ingresá tu correo corporativo para acceder a tu organización",
+      "BACK_TO_LOGIN": "Iniciar sesión con contraseña",
       "WORK_EMAIL": {
-        "LABEL": "Work Email",
-        "PLACEHOLDER": "Enter your work email"
+        "LABEL": "Correo corporativo",
+        "PLACEHOLDER": "Ingresá tu correo corporativo"
       },
-      "SUBMIT": "Continue with SSO",
+      "SUBMIT": "Continuar con Google",
       "API": {
-        "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
+        "ERROR_MESSAGE": "La autenticación con Google falló. Verificá tus credenciales e intentá nuevamente."
       }
     }
   }
