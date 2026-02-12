@@ -30,6 +30,9 @@ class Api::V1::AccountsController < Api::BaseController
       locale: account_params[:locale],
       user: current_user
     ).perform
+
+    Enterprise::CreateStripeCustomerJob.perform_later(@account)
+
     if @user
       send_auth_headers(@user)
       render 'api/v1/accounts/create', format: :json, locals: { resource: @user }
