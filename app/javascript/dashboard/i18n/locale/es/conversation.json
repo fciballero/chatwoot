@@ -349,7 +349,8 @@
       "PREVIOUS_CONVERSATION": "Conversaciones anteriores",
       "MACROS": "Macros",
       "LINEAR_ISSUES": "Problemas lineales vinculados",
-      "SHOPIFY_ORDERS": "Shopify Orders"
+      "SHOPIFY_ORDERS": "Shopify Orders",
+      "TIENDANUBE_ORDERS": "Tiendanube Orders"
     },
     "SHOPIFY": {
       "ORDER_ID": "Order #{id}",
@@ -368,6 +369,24 @@
         "FULFILLED": "Fulfilled",
         "PARTIALLY_FULFILLED": "Partially Fulfilled",
         "UNFULFILLED": "Unfulfilled"
+      }
+    },
+    "TIENDANUBE": {
+      "ORDER_ID": "Orden #{id}",
+      "ERROR": "Error al cargar las órdenes",
+      "NO_TIENDANUBE_ORDERS": "No se encontraron órdenes",
+
+      "FINANCIAL_STATUS": {
+        "PENDING": "Pendiente",
+        "PAID": "Pagado",
+        "REFUNDED": "Reembolsado",
+        "CANCELLED": "Cancelada"
+      },
+
+      "FULFILLMENT_STATUS": {
+        "FULFILLED": "Despachada",
+        "PARTIAL": "Despacho parcial",
+        "UNFULFILLED": "Sin despachar"
       }
     }
   },
